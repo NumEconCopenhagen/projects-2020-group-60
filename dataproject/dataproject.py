@@ -25,10 +25,9 @@ Overview=Dst.get_subjects()
 Theme=Dst.get_tables(subjects=['16']) 
 
 
-
-
 ##Table[1]##
-#Then we choose the subdataset for "Pension funds" with id=MPK49 that is shown below.
+
+#We select the subdataset for "Pension funds" with id=MPK49 that is shown below.
 Subject_1=Theme[Theme.id == 'MPK49'] 
 
 #Further we can examine the variables in more deepth. 
@@ -54,28 +53,19 @@ Intersectoral = Sort[Sort['Type']=='Intersectoral pension funds '].sort_values([
 Inter = pd.DataFrame(Intersectoral).rename(columns={'Amount': 'Intersectoral pension funds in mio kr.'})
 Inter_Reduc = Inter.drop('Type', axis=1)
 
-
-#We merge the two datasets into one collective table. 
+#We merge the two datasets into one collective table by using pd.concat. 
 Pension = pd.concat([Inter_Reduc, Corp_Reduc], axis=1)
 Pen_Reduc = Pension.drop('Assets & Liabilities', axis =1)
 
 
 
-
-
-
-
-
-
-
 ##Table[2]##
+#We now select the subdataset for "Share index" with id=MPK13 that is shown below.
 Subject_2=Theme[Theme.id == 'MPK13'] 
-
 
 #we want to insepect the correlation between the share index and pension funds, we finde the share index in the data base. 
 Vars_2 = Dst.get_variables(table_id = 'MPK13')
 Vars_2.values
-
 
 # We will be using the OMXC share index with index = 1995, wich is calculated on a monthly basis.   
 Data_2 = Dst.get_data(table_id = 'MPK13', variables={'Type':['10'], 'TID':['*']})
@@ -115,13 +105,6 @@ Shared_Frame = pd.DataFrame({'Yearly average share_index': [Year_2000, Year_2001
                             , 'Year': [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016]})
 
 Shared_Frame_Reduc = Shared_Frame.set_index('Year')
-
-
-
-
-
-
-
 
 
 
