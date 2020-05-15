@@ -108,8 +108,6 @@ Shared_Frame_Reduc = Shared_Frame.set_index('Year')
 
 
 
-
-
 ##Merging of Table[1] & Table[2]##
 #Merging the to dataframes. 
 Collective = pd.concat([Pension, Shared_Frame_Reduc], axis=1)
@@ -117,41 +115,43 @@ np.corrcoef(Collective['Intersectoral pension funds in mio kr.'], Collective['Ye
 np.corrcoef(Collective['Corporate pension funds in mio kr.'], Collective['Yearly average share_index'])
 
 
-#resseting Index for graphical analysis.
+
+
+###Analysis###
+#Use np.corrcoef to find the correlation coefficient.
+np.corrcoef(dp.Collective['Corporate pension funds in mio kr.'], dp.Collective['Yearly average share_index'])
+np.corrcoef(dp.Collective['Intersectoral pension funds in mio kr.'], dp.Collective['Yearly average share_index'])
+
+
+##Graphical Analysis. 
+#For the graphical analysis, we want to reset the index.
 Collective.reset_index(inplace = True)
 Collective_Year = Collective['Year']
 Collective_IP = Collective['Intersectoral pension funds in mio kr.']
 Collective_CP = Collective['Corporate pension funds in mio kr.']
 Collective_SI = Collective['Yearly average share_index']
 
-#Creating Figure with 2 y-axis to compare pension funds and yearly share index.
+#Now, we will create a figure with two y-axis to firstly compare the intersectoral pension funds and the yearly share index.
 fig1,ax = plt.subplots()
 ax.plot(Collective_Year, Collective_IP, color='red', marker='o')
 ax.set_xlabel('Year')
 ax.set_ylabel('Intersectoral pension funds in mio kr.', color='red')
 
-# using twinx to create second axi.
+#Using twinx to create second axis.
 ax2=ax.twinx()
 ax2.plot(Collective_Year, Collective_SI, color = 'blue', marker='o')
 ax2.set_ylabel('Yearly average share_index', color='blue')
-plt.show()
 
-#Now creating a figure with corporate pension funds, and share_index.
-#Creating Figure with 2 y-axis to compare pension funds and yearly share index.
+#Again, we will create a figure with two y-axis to compare the corporate pension funds and the yearly share index.
 fig2,ax = plt.subplots()
 ax.plot(Collective_Year, Collective_CP, color='red', marker='o')
 ax.set_xlabel('Year')
 ax.set_ylabel('Corporate pension funds in mio kr.', color='red')
 
-# using twinx to create second y_aix.
+#Using twinx to create second y_aix.
 ax2=ax.twinx()
 ax2.plot(Collective_Year, Collective_SI, color = 'blue', marker='o')
 ax2.set_ylabel('Yearly average share_index', color='blue')
-plt.show()
-
-
-
-
 
 
 
